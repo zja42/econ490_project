@@ -73,8 +73,11 @@ country-years (ILOSTAT). The two are never pooled because the outcome
 definitions differ. Two-way fixed effects with lagged log GDP per capita in
 every regression; country-clustered standard errors are the reference
 inference. Main coefficient +0.668 (cluster p = 0.065; the within estimator
-gives p = 0.054), DiD −0.626 (p = 0.653), OECD columns p = 0.352 / 0.583 /
-0.746, AR(1) PCSE +0.560 (p = 0.007), full winsorized repeat +0.571 (p = 0.005).
+gives p = 0.054), DiD −0.626 (p = 0.653), OECD columns p = 0.846 / 0.860 /
+0.467, AR(1) PCSE +0.560 (p = 0.007), full winsorized repeat +0.571 (p = 0.005).
+
+The OECD leave lag is calculated on annual policy history before merging
+employment, so a missing employment row does not remove a known entitlement.
 
 **Conclusion: no robustly significant policy effect, only a conditional
 association.** All historically significant p-values are retired and must not
@@ -93,7 +96,7 @@ Full reasoning and evidence in `docs/RESEARCH_DECISIONS.md`.
 4. **No live downloads at run time.** `data_raw/` snapshots are the inputs.
 5. **The 2019 summary table is restricted to the main regressor, and the
    non-European subset column is kept** although it is imprecise.
-6. **The build-up table uses one 333-observation sample in all four columns.**
+6. **The build-up table uses one 358-observation sample in all four columns.**
 7. **Winsorization is a robustness check, not the preferred specification.**
 8. **Comments and command choice follow `docs/CODE_CONVENTIONS.md`.**
 9. **No `reghdfe` or any other package estimator**, including in a "just for
@@ -107,7 +110,7 @@ The eight that have already caused damage; the full list with evidence is in
 - A significant interaction in Test7 was once read as support for the
   hypothesis. `pay_c = pay_pct − 100` is never positive, so that reading is
   wrong and the conclusion is retired.
-- OECD N is 443 without public leave spending and 333 with it; dropping a
+- OECD N is 473 without public leave spending and 358 with it; dropping a
   control does not restore 477.
 - `xtreg, fe vce(robust)` is already clustered at the panel level after `xtset`;
   the printed p-value is 0.054, not an unclustered one.
@@ -129,7 +132,7 @@ order they mattered:
    marginal effect depend on the replacement rate; the coefficient on weeks
    becomes a conditional slope, no longer the average association.
 2. **The data cost is prohibitive.** Joining Test7's `policy.dta` to the current
-   panels leaves about 62 European and 71 OECD usable rows, against 272 and 333
+   panels leaves about 62 European and 71 OECD usable rows, against 272 and 358
    in the current models.
 3. **Collinearity.** Weeks, the replacement rate and their product move
    together; standard errors inflate and coefficients become unstable.

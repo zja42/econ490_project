@@ -91,8 +91,8 @@ in `log_files/4_tables_261109.log`.
 All 100-point rubric gaps on the code side are closed: five official data
 citations in the do-file; a 2019 single-year summary table restricted to rows
 with the main regressor, exported as `.csv`, `.xlsx` and `.docx`; a four-column
-build-up table with all columns on the same 333 observations; a three-column
-subset table whose all-countries column uses 443 observations so 341 + 102
+build-up table with all columns on the same 358 observations; a three-column
+subset table whose all-countries column uses 473 observations so 359 + 114
 closes; an overlapping two-subset histogram; a full 1/99 winsorized repeat of
 all five continuous variables; and the required comments on unmatched merges,
 winsorization preference and non-linearity.
@@ -108,18 +108,18 @@ folders, and the 11 Dec paper itself.
 ## 4. Headline numbers (authority: `log_files/3_results_261109.log`)
 
 Europe main table N = 272 / 272 / 272 / 295 / 272 / 295.
-OECD extension N = 333 / 333 / 443.
+OECD extension N = 358 / 358 / 473.
 
 Three `test lag_fatherweeks10 = 0` lines print the exact p-values in the log, so
 the numbers quoted in the paper and in the Canvas comments are traceable to a
 test rather than read off a table: LSDV clustered `F(1,22) = 3.77`,
 `Prob > F = 0.0651`; Europe AR(1) PCSE `chi2(1) = 7.29`, `p = 0.0069`; OECD
-AR(1) PCSE `chi2(1) = 0.30`, `p = 0.5832`.
+AR(1) PCSE `chi2(1) = 0.03`, `p = 0.8599`.
 
 - `lag_fatherweeks10` = +0.668; FE p=0.016, robust p=0.054,
   country-clustered p=0.065; AR(1) PCSE +0.560 (p=0.007).
 - DiD -0.626 (p=0.653); event-study periods p=0.878 / 0.815 / 0.817 / 0.603.
-- OECD extension columns p=0.352 / 0.583 / 0.746.
+- OECD extension columns p=0.846 / 0.860 / 0.467.
 - Diagnostics: year-FE `testparm` significant; `xttest3` (heteroskedasticity)
   and `xtserial` (serial correlation) both reject; Hausman favours FE.
 
@@ -249,8 +249,8 @@ lecture notes. They are easy to miss and have caused real rework.
   byte-identical to the snapshot — so the reason to ship frozen snapshots is
   that a live revision would change the reported numbers, not that the sources
   cannot be fetched.
-- **The non-European subset column is weak** (6 country groups, 102
-  observations, coefficient 23.576). It is kept because the rubric requires
+- **The non-European subset column is weak** (7 country groups, 114
+  observations, coefficient 20.247). It is kept because the rubric requires
   three columns and the split is theory-driven; the table note says explicitly
   that it must not be read as a policy effect. See `docs/RESEARCH_DECISIONS.md`.
 - **Canvas file types exclude `.xlsx` and `.dta`.** The summary table is
@@ -259,8 +259,8 @@ lecture notes. They are easy to miss and have caused real rework.
 - **The build-up table mixed two estimation samples.** The first three columns
   used 443 observations and the fourth 333, because `leave_gdp` is missing for
   110 country-years. Interpreting the coefficient changes as the effect of
-  adding controls was therefore invalid. All four columns now use one 333-observation
-  sample; the subset table keeps a separate 443-observation all-countries column
+  adding controls was therefore invalid. All four columns now use one 358-observation
+  sample; the subset table keeps a separate 473-observation all-countries column
   so its two subsets still add up.
 - **"All variables winsorized" was only half done.** The original repeat
   winsorized the outcome and lagged log GDP only. The current repeat covers all
@@ -287,7 +287,7 @@ Full list with evidence: `docs/PITFALLS_AND_CORRECTIONS.md`.
 | Unwinsorized specification preferred | 1/99 winsorization changes only 4 outcome + 4 lagged-GDP rows and does not move the main coefficient |
 | No quadratic or interaction term in the main model | Neither improves fit; the assignment permits non-linearity only when it does |
 | Fifth numbered do-file | Keeps every log under 25 pages; the quadratic and winsorized checks also live there so `3_results` stays short |
-| Build-up table on one fixed sample | All four columns use the same 333 observations; the subset table keeps its own 443-observation all-countries column so 341 + 102 closes |
+| Build-up table on one fixed sample | All four columns use the same 358 observations; the subset table keeps its own 473-observation all-countries column so 359 + 114 closes |
 | 2019 summary table as `.docx` | Rubric says "Excel or Word document" but Canvas rejects `.xlsx`; the `.csv` and `.xlsx` remain as the content authority |
 | Full 1/99 winsorized repeat | Covers all five continuous variables; changes 4 / 0 / 4 / 5 / 5 observations and moves the main coefficient +0.560 -> +0.571 without changing sign or significance |
 | Access date 14 November 2026 for all five data sources | Set by the team on the day the final citations were written |
