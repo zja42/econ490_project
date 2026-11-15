@@ -1,9 +1,8 @@
--------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
       name:  <unnamed>
-       log:  C:\Users\Hansen\UBC\ECON 490 003 2026W1 Seminar in Applied Economi
-> cs - econ490_project\log_files/2_descriptive_261109.log
+       log:  /private/tmp/econ490-lag-main.owXM5I/log_files/2_descriptive_261109.log
   log type:  text
- opened on:  15 Nov 2026, 15:51:13
+ opened on:  15 Nov 2026, 16:27:26
 . }
 
 . 
@@ -124,10 +123,8 @@ scalars:
 >         (mean) mean_gap=employment_gap (sd) sd_gap=employment_gap ///
 >         (min) min_gap=employment_gap (max) max_gap=employment_gap ///
 >         (count) n_gap=employment_gap ///
->         (mean) mean_leave10=lag_fatherweeks10 (sd) sd_leave10=lag_fatherweeks
-> 10 ///
->         (min) min_leave10=lag_fatherweeks10 (max) max_leave10=lag_fatherweeks
-> 10 ///
+>         (mean) mean_leave10=lag_fatherweeks10 (sd) sd_leave10=lag_fatherweeks10 ///
+>         (min) min_leave10=lag_fatherweeks10 (max) max_leave10=lag_fatherweeks10 ///
 >         (count) n_leave10=lag_fatherweeks10 ///
 >         (mean) mean_lngdp=lag_lngdp (sd) sd_lngdp=lag_lngdp ///
 >         (min) min_lngdp=lag_lngdp (max) max_lngdp=lag_lngdp ///
@@ -147,28 +144,24 @@ scalars:
 
 .     list
 
-     +-----------------------------------------------------------------+
-  1. | mean_gap |   sd_gap |  min_gap |  max_gap  | n_gap  | mean_~10  |
-     | 27.64681 | 12.06477 | 7.680142 | 60.93509  |   295  |  .730279  |
-     |----------+----------+----------+--------------------------------|
-     | sd_le~10 | min_l~10 | max_l~10 | n_lea~10 | mean_l~p | sd_lngdp |
-     | .9217423 |        0 |     2.86 |      272 |  10.2962 | .5864253 |
-     |----------+----------+-------------------------------------------|
-     | min_ln~p | max_ln~p | n_lngdp | mean_g~h | sd_gro~h | min_gro~h |
-     | 9.059352 | 11.63002 |     295 | 1.881435 | 3.396585 | -14.63022 |
-     |----------+----------+-------------------------------------------|
-     | max_gr~h | n_growth | mean_s~d | sd_spend | min_sp~d | max_sp~d |
-     | 24.62399 |      295 | .4184661 | .2936958 | .0127021 | 1.559837 |
-     |-------------------------------------------+---------------------|
-     | n_spend | mean_m~e |  sd_male | min_male  | max_male  | n_male  |
-     |     295 |  90.7258 | 3.839696 | 74.52456  | 97.55639  |    295  |
-     |-----------------------------------------------------------------|
-     |  mean_f~e  |  sd_fem~e  |  min_fe~e  |  max_fe~e  |  n_female   |
-     |  63.07899  |  12.57904  |    34.455  |  84.52414  |       295   |
-     +-----------------------------------------------------------------+
+     +----------------------------------------------------------------------------------------+
+  1. | mean_gap |   sd_gap |  min_gap |  max_gap | n_gap  | mean_~10  | sd_le~10  | min_l~10  |
+     | 27.64681 | 12.06477 | 7.680142 | 60.93509 |   295  |  .730279  | .9217423  |        0  |
+     |----------+----------+----------+----------+--------------------------------+-----------|
+     | max_l~10 | n_lea~10 | mean_l~p | sd_lngdp | min_ln~p | max_ln~p | n_lngdp  | mean_g~h  |
+     |     2.86 |      272 |  10.2962 | .5864253 | 9.059352 | 11.63002 |     295  | 1.881435  |
+     |----------+-----------------------------------------------------------------------------|
+     | sd_gro~h | min_gro~h | max_gr~h | n_growth | mean_s~d | sd_spend | min_sp~d | max_sp~d |
+     | 3.396585 | -14.63022 | 24.62399 |      295 | .4184661 | .2936958 | .0127021 | 1.559837 |
+     |----------------------------------------------------------------------------------------|
+     | n_spend | mean_m~e |  sd_male | min_male | max_male  | n_male  | mean_f~e  | sd_fem~e  |
+     |     295 |  90.7258 | 3.839696 | 74.52456 | 97.55639  |    295  | 63.07899  | 12.57904  |
+     |----------------------------------------------------------------------------------------|
+     |          min_fe~e          |          max_fe~e           |          n_female           |
+     |            34.455          |          84.52414           |               295           |
+     +----------------------------------------------------------------------------------------+
 
-.     export excel using "${tabledir}/descriptive_261109.xlsx", firstrow(variab
-> les) replace
+.     export excel using "${tabledir}/descriptive_261109.xlsx", firstrow(variables) replace
 file ./tables/descriptive_261109.xlsx saved
 
 . restore
@@ -204,7 +197,7 @@ female_rate                                                  63.079 (12.579)
 >     graphregion(color(white))
 
 . graph export "${figdir}/scatter_gap_leave_261109.png", as(png) replace
-file ./figures/scatter_gap_leave_261109.png saved as PNG format
+file /private/tmp/econ490-lag-main.owXM5I/figures/scatter_gap_leave_261109.png saved as PNG format
 
 . 
 . * Figure 2: outcome distribution
@@ -215,7 +208,7 @@ file ./figures/scatter_gap_leave_261109.png saved as PNG format
 (bin=17, start=7.6801421, width=3.1326439)
 
 . graph export "${figdir}/histogram_gap_261109.png", as(png) replace
-file ./figures/histogram_gap_261109.png saved as PNG format
+file /private/tmp/econ490-lag-main.owXM5I/figures/histogram_gap_261109.png saved as PNG format
 
 . 
 . * Figure 3: average gap over time
@@ -228,11 +221,10 @@ file ./figures/histogram_gap_261109.png saved as PNG format
 >     graphregion(color(white))
 
 . graph export "${figdir}/trend_gap_261109.png", as(png) replace
-file ./figures/trend_gap_261109.png saved as PNG format
+file /private/tmp/econ490-lag-main.owXM5I/figures/trend_gap_261109.png saved as PNG format
 
 . 
-. * Summary for one representative year, keeping only rows with the main regres
-> sor
+. * Summary for one representative year, keeping only rows with the main regressor
 . preserve
 
 .     use "${datadir_final}/oecd_analysis_261109.dta", clear
@@ -244,13 +236,11 @@ file ./figures/trend_gap_261109.png saved as PNG format
   23
 
 .     * Export the same 2019 summary table as a Word document
-.     dtable employment_gap lag_fatherweeks10 lag_lngdp lag_gdp_growth leave_gd
-> p, ///
->         continuous(employment_gap lag_fatherweeks10 lag_lngdp lag_gdp_growth 
-> leave_gdp, ///
+.     dtable employment_gap lag_fatherweeks10 lag_lngdp lag_gdp_growth leave_gdp, ///
+>         continuous(employment_gap lag_fatherweeks10 lag_lngdp lag_gdp_growth leave_gdp, ///
 >         statistic(n mean sd min max)) ///
->         title("Summary statistics, 2019 OECD sample; each row reports N, mean
->  (sd), minimum and maximum") ///
+>         title("Summary statistics, 2019 OECD sample; each row reports N, mean (sd), minimum and max
+> imum") ///
 >         export("${tabledir}/descriptive_2019_oecd_261109.docx", replace)
 
 Summary statistics, 2019 OECD sample; each row reports N, mean (sd), minimum and maximum
@@ -264,17 +254,14 @@ Lagged log real GDP per capita                                23 10.092 (0.628) 
 Lagged real GDP growth, percent                                 23 3.183 (1.706) 0.827 7.689
 Public maternity and parental leave spending, percent of GDP    20 0.372 (0.302) 0.021 1.207
 --------------------------------------------------------------------------------------------
-(collection DTable exported to file
- ./tables/descriptive_2019_oecd_261109.docx)
+(collection DTable exported to file ./tables/descriptive_2019_oecd_261109.docx)
 
 .     collapse ///
 >         (mean) mean_gap=employment_gap (sd) sd_gap=employment_gap ///
 >         (min) min_gap=employment_gap (max) max_gap=employment_gap ///
 >         (count) n_gap=employment_gap ///
->         (mean) mean_leave=lag_fatherweeks10 (sd) sd_leave=lag_fatherweeks10 /
-> //
->         (min) min_leave=lag_fatherweeks10 (max) max_leave=lag_fatherweeks10 /
-> //
+>         (mean) mean_leave=lag_fatherweeks10 (sd) sd_leave=lag_fatherweeks10 ///
+>         (min) min_leave=lag_fatherweeks10 (max) max_leave=lag_fatherweeks10 ///
 >         (count) n_leave=lag_fatherweeks10 ///
 >         (mean) mean_lngdp=lag_lngdp (sd) sd_lngdp=lag_lngdp ///
 >         (min) min_lngdp=lag_lngdp (max) max_lngdp=lag_lngdp ///
@@ -288,26 +275,21 @@ Public maternity and parental leave spending, percent of GDP    20 0.372 (0.302)
 
 .     list
 
-     +------------------------------------------------------------------------+
-  1. | mean_gap |   sd_gap |  min_gap | max_gap | n_gap | mean_l~e | sd_leave |
-     |  29.4037 | 15.02172 | 9.281006 |  58.573 |    23 | .5076173 | .7758401 |
-     |------------------------------------------------------------------------|
-     | min_le~e  | max_le~e  | n_leave  | mean_l~p  |  sd_lngdp  |  min_ln~p  |
-     |        0  |     2.86  |      23  | 10.09246  |  .6283055  |  8.756768  |
-     |-----------+----------------------+-----------+------------+------------|
-     | max_ln~p  | n_lngdp  | mean_g~h  | sd_gro~h  |  min_gr~h  |  max_gr~h  |
-     | 11.21221  |      23  | 3.183065  |  1.70633  |  .8266467  |  7.688659  |
-     |-----------+------------------------------------------------------------|
-     | n_growth  | mean_s~d  | sd_spend  | min_sp~d  |  max_sp~d  |  n_spend  |
-     |       23  | .3723358  | .3019385  | .0212108  |  1.206938  |       20  |
-     +------------------------------------------------------------------------+
+     +----------------------------------------------------------------------------------------------+
+  1. | mean_gap |   sd_gap |  min_gap | max_gap | n_gap | mean_l~e | sd_leave | min_le~e | max_le~e |
+     |  29.4037 | 15.02172 | 9.281006 |  58.573 |    23 | .5076173 | .7758401 |        0 |     2.86 |
+     |----------+-----------------------------------------------------------------------------------|
+     | n_leave  | mean_l~p  | sd_lngdp  | min_ln~p  | max_ln~p  | n_lngdp  | mean_g~h  |  sd_gro~h  |
+     |      23  | 10.09246  | .6283055  | 8.756768  | 11.21221  |      23  | 3.183065  |   1.70633  |
+     |----------------------------------------------------------------------------------------------|
+     | min_gr~h  | max_gr~h  | n_growth  | mean_s~d  | sd_spend  | min_sp~d  | max_sp~d  | n_spend  |
+     | .8266467  | 7.688659  |       23  | .3723358  | .3019385  | .0212108  | 1.206938  |      20  |
+     +----------------------------------------------------------------------------------------------+
 
-.     export excel using "${tabledir}/descriptive_2019_oecd_261109.xlsx", first
-> row(variables) replace
+.     export excel using "${tabledir}/descriptive_2019_oecd_261109.xlsx", firstrow(variables) replace
 file ./tables/descriptive_2019_oecd_261109.xlsx saved
 
-.     export delimited using "${tabledir}/descriptive_2019_oecd_261109.csv", re
-> place
+.     export delimited using "${tabledir}/descriptive_2019_oecd_261109.csv", replace
 file ./tables/descriptive_2019_oecd_261109.csv saved
 
 . restore
@@ -320,31 +302,26 @@ file ./tables/descriptive_2019_oecd_261109.csv saved
 
 .     generate byte european = 0
 
-.     replace european = 1 if inlist(iso,"AUT","BEL","CZE","DEU","ESP","EST","F
-> RA","GBR")
+.     replace european = 1 if inlist(iso,"AUT","BEL","CZE","DEU","ESP","EST","FRA","GBR")
 (189 real changes made)
 
-.     replace european = 1 if inlist(iso,"GRC","HUN","IRL","ITA","LTU","LUX","L
-> VA","NLD")
+.     replace european = 1 if inlist(iso,"GRC","HUN","IRL","ITA","LTU","LUX","LVA","NLD")
 (131 real changes made)
 
 .     replace european = 1 if inlist(iso,"POL","PRT","SVN")
 (43 real changes made)
 
-.     twoway (histogram lag_fatherweeks10 if european==1, color(navy) lcolor(bl
-> ack)) ///
->         (histogram lag_fatherweeks10 if european==0, color(maroon) lcolor(bla
-> ck)), ///
+.     twoway (histogram lag_fatherweeks10 if european==1, color(navy) lcolor(black)) ///
+>         (histogram lag_fatherweeks10 if european==0, color(maroon) lcolor(black)), ///
 >         title("Father-specific paid leave by region") ///
 >         xtitle("Lagged father-specific paid leave, per 10 weeks") ///
 >         ytitle("Density") ///
->         legend(label(1 "European OECD (19)") label(2 "Non-European OECD (7)")
-> ) ///
+>         legend(label(1 "European OECD (19)") label(2 "Non-European OECD (7)")) ///
 >         graphregion(color(white))
 
-.     graph export "${figdir}/histogram_leave_byregion_261109.png", as(png) rep
-> lace
-file ./figures/histogram_leave_byregion_261109.png saved as PNG format
+.     graph export "${figdir}/histogram_leave_byregion_261109.png", as(png) replace
+file /private/tmp/econ490-lag-main.owXM5I/figures/histogram_leave_byregion_261109.png saved as PNG
+    format
 
 . restore
 

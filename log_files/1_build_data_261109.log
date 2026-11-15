@@ -1,9 +1,8 @@
--------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
       name:  <unnamed>
-       log:  C:\Users\Hansen\UBC\ECON 490 003 2026W1 Seminar in Applied Economi
-> cs - econ490_project\log_files/1_build_data_261109.log
+       log:  /private/tmp/econ490-lag-main.owXM5I/log_files/1_build_data_261109.log
   log type:  text
- opened on:  15 Nov 2026, 15:51:07
+ opened on:  15 Nov 2026, 16:27:24
 . }
 
 . 
@@ -13,27 +12,20 @@
 . *   last update 10/09/2026 15:00. Luxembourg: European Commission, Eurostat.
 . *   https://ec.europa.eu/eurostat/databrowser/view/lfst_hhacwnc/default/table
 . *   (accessed 14 November 2026).
-. * OECD. 2026. "PF2.5 Trends in leave entitlements around childbirth" (dataset
-> ),
+. * OECD. 2026. "PF2.5 Trends in leave entitlements around childbirth" (dataset),
 . *   OECD Family Database, updated November 2026. Paris: OECD.
-. *   https://webfs.oecd.org/els-com/Family_Database/PF2_5_Trends_in_leave_enti
-> tlements_around_childbirth.xlsx
+. *   https://webfs.oecd.org/els-com/Family_Database/PF2_5_Trends_in_leave_entitlements_around_childb
+> irth.xlsx
 . *   (accessed 14 November 2026).
-. * International Labour Organization. 2026. "Employment rate by sex and househ
-> old
-. *   composition" [GED_PEPR_SEX_HHT_CHL_RT_A] (database), ILOSTAT. Geneva: ILO
-> .
+. * International Labour Organization. 2026. "Employment rate by sex and household
+. *   composition" [GED_PEPR_SEX_HHT_CHL_RT_A] (database), ILOSTAT. Geneva: ILO.
 . *   https://ilostat.ilo.org/data/ (accessed 14 November 2026).
-. * World Bank. 2026. World Development Indicators (dataset), NY.GDP.PCAP.KD an
-> d
-. *   NY.GDP.MKTP.KD.ZG, last updated 11 November 2026. Washington, DC: World B
-> ank.
+. * World Bank. 2026. World Development Indicators (dataset), NY.GDP.PCAP.KD and
+. *   NY.GDP.MKTP.KD.ZG, last updated 11 November 2026. Washington, DC: World Bank.
 . *   https://databank.worldbank.org/source/world-development-indicators
 . *   (accessed 14 November 2026).
-. * OECD. 2026. Social Expenditure Database (SOCX) (dataset), public maternity 
-> and
-. *   parental leave spending. Paris: OECD. https://doi.org/10.1787/data-00167-
-> en
+. * OECD. 2026. Social Expenditure Database (SOCX) (dataset), public maternity and
+. *   parental leave spending. Paris: OECD. https://doi.org/10.1787/data-00167-en
 . *   (accessed 14 November 2026).
 . 
 . * Build both panels from the raw source files
@@ -43,11 +35,10 @@
 (encoding automatically selected: UTF-8)
 (3 vars, 38 obs)
 
-. tempfile country_codes euro_codes policy
+. tempfile country_codes euro_codes policy oecd_policy_lag
 
 . save `country_codes'
-file C:\Users\Hansen\AppData\Local\Temp\ST_9a60_000001.tmp saved as .dta
-    format
+file /var/folders/70/c_t3zk1175x0jxm83ldvyly00000gn/T//S_76330.000001 saved as .dta format
 
 . preserve
 
@@ -55,14 +46,12 @@ file C:\Users\Hansen\AppData\Local\Temp\ST_9a60_000001.tmp saved as .dta
 (15 observations deleted)
 
 . save `euro_codes'
-file C:\Users\Hansen\AppData\Local\Temp\ST_9a60_000002.tmp saved as .dta
-    format
+file /var/folders/70/c_t3zk1175x0jxm83ldvyly00000gn/T//S_76330.000002 saved as .dta format
 
 . restore
 
 . 
-. import excel "${datadir_raw}/oecd_leave_history.xlsx", sheet("Time-Series") c
-> ellrange(A9) clear
+. import excel "${datadir_raw}/oecd_leave_history.xlsx", sheet("Time-Series") cellrange(A9) clear
 (20 vars, 2,166 obs)
 
 . rename A country
@@ -111,25 +100,22 @@ Panel variable: pid (strongly balanced)
 . replace total_paid_raw = "2.6" if iso=="FRA" & year==2014
 (1 real change made)
 
-. replace timing_note = "PreParE effective 2015, not 2014" if iso=="FRA" & year
-> ==2014
+. replace timing_note = "PreParE effective 2015, not 2014" if iso=="FRA" & year==2014
 variable timing_note was str1 now str32
 (1 real change made)
 
 . replace total_paid_raw = "4" if iso=="IRL" & year==2019
 (1 real change made)
 
-. replace timing_note = "Two weeks Parents Leave effective November 2019" if is
-> o=="IRL" & year==2019
+. replace timing_note = "Two weeks Parents Leave effective November 2019" if iso=="IRL" & year==2019
 variable timing_note was str32 now str47
 (1 real change made)
 
-. replace total_paid_raw = string(real(total_paid_raw)+13) if iso=="ITA" & year
-> ==2022
+. replace total_paid_raw = string(real(total_paid_raw)+13) if iso=="ITA" & year==2022
 (1 real change made)
 
-. replace timing_note = "Three months reserved paid parental leave effective Au
-> gust 2022" if iso=="ITA" & year==2022
+. replace timing_note = "Three months reserved paid parental leave effective August 2022" if iso=="IT
+> A" & year==2022
 variable timing_note was str47 now str63
 (1 real change made)
 
@@ -137,14 +123,10 @@ variable timing_note was str47 now str63
 . * Align annual snapshots to the legal years listed in the OECD annex.
 . foreach measure in all paid {
   2.     generate snapshot = real(total_`measure'_raw)
-  3.     replace total_`measure'_raw = string(F1.snapshot,"%18.10g") if iso=="A
-> UT" & year==2019
-  4.     replace total_`measure'_raw = string(F1.snapshot,"%18.10g") if iso=="E
-> ST" & year==2020
-  5.     replace total_`measure'_raw = string(F1.snapshot,"%18.10g") if iso=="F
-> IN" & year==2010
-  6.     replace total_`measure'_raw = string(F1.snapshot,"%18.10g") if iso=="G
-> RC" & year==2021
+  3.     replace total_`measure'_raw = string(F1.snapshot,"%18.10g") if iso=="AUT" & year==2019
+  4.     replace total_`measure'_raw = string(F1.snapshot,"%18.10g") if iso=="EST" & year==2020
+  5.     replace total_`measure'_raw = string(F1.snapshot,"%18.10g") if iso=="FIN" & year==2010
+  6.     replace total_`measure'_raw = string(F1.snapshot,"%18.10g") if iso=="GRC" & year==2021
   7.     drop snapshot
   8. }
 (277 missing values generated)
@@ -158,50 +140,39 @@ variable timing_note was str47 now str63
 (1 real change made)
 (1 real change made)
 
-. replace timing_note = "OECD annex: effective 2019; 2020 snapshot" if iso=="AU
-> T" & year==2019
+. replace timing_note = "OECD annex: effective 2019; 2020 snapshot" if iso=="AUT" & year==2019
 (1 real change made)
 
-. replace timing_note = "OECD annex: effective 2020; 2021 snapshot" if iso=="ES
-> T" & year==2020
+. replace timing_note = "OECD annex: effective 2020; 2021 snapshot" if iso=="EST" & year==2020
 (1 real change made)
 
-. replace timing_note = "OECD annex: effective 2010; 2011 snapshot" if iso=="FI
-> N" & year==2010
+. replace timing_note = "OECD annex: effective 2010; 2011 snapshot" if iso=="FIN" & year==2010
 (1 real change made)
 
-. replace timing_note = "OECD annex: effective 2021; 2022 snapshot" if iso=="GR
-> C" & year==2021
+. replace timing_note = "OECD annex: effective 2021; 2022 snapshot" if iso=="GRC" & year==2021
 (1 real change made)
 
 . 
 . * Retain slash-separated entitlement options instead of averaging them.
 . foreach measure in all paid {
-  2.     * Only two slash-separated values occur in the workbook; keep both opt
-> ions.
+  2.     * Only two slash-separated values occur in the workbook; keep both options.
 .     generate `measure'_option1 = real(total_`measure'_raw)
   3.     generate `measure'_option2 = .
-  4.     replace `measure'_option1 = 28.6  if total_`measure'_raw == "28.6 / 54
-> .6"
-  5.     replace `measure'_option2 = 54.6  if total_`measure'_raw == "28.6 / 54
-> .6"
-  6.     replace `measure'_option1 = 30.17 if total_`measure'_raw == "30.17 / 5
-> 6.17"
-  7.     replace `measure'_option2 = 56.17 if total_`measure'_raw == "30.17 / 5
-> 6.17"
+  4.     replace `measure'_option1 = 28.6  if total_`measure'_raw == "28.6 / 54.6"
+  5.     replace `measure'_option2 = 54.6  if total_`measure'_raw == "28.6 / 54.6"
+  6.     replace `measure'_option1 = 30.17 if total_`measure'_raw == "30.17 / 56.17"
+  7.     replace `measure'_option2 = 56.17 if total_`measure'_raw == "30.17 / 56.17"
   8.     generate `measure'_min = `measure'_option1
-  9.     replace `measure'_min = `measure'_option2 if !missing(`measure'_option
-> 2) & (`measure'_option2 < `measure'_min | missing(`measure'_min))
+  9.     replace `measure'_min = `measure'_option2 if !missing(`measure'_option2) & (`measure'_option
+> 2 < `measure'_min | missing(`measure'_min))
  10.     generate `measure'_max = `measure'_option1
- 11.     replace `measure'_max = `measure'_option2 if !missing(`measure'_option
-> 2) & (`measure'_option2 > `measure'_max | missing(`measure'_max))
- 12.     generate `measure'_n = !missing(`measure'_option1) + !missing(`measure
-> '_option2)
+ 11.     replace `measure'_max = `measure'_option2 if !missing(`measure'_option2) & (`measure'_option
+> 2 > `measure'_max | missing(`measure'_max))
+ 12.     generate `measure'_n = !missing(`measure'_option1) + !missing(`measure'_option2)
  13.     generate known_`measure' = `measure'_n>0 & `measure'_min>=0
- 14.     generate same_`measure' = `measure'_n==L1.`measure'_n & abs(`measure'_
-> min-L1.`measure'_min)<=0.1 & abs(`measure'_max-L1.`measure'_max)<=0.1
- 15.     generate nondecrease_`measure' = same_`measure' | `measure'_min>=L1.`m
-> easure'_max-0.1
+ 14.     generate same_`measure' = `measure'_n==L1.`measure'_n & abs(`measure'_min-L1.`measure'_min)<
+> =0.1 & abs(`measure'_max-L1.`measure'_max)<=0.1
+ 15.     generate nondecrease_`measure' = same_`measure' | `measure'_min>=L1.`measure'_max-0.1
  16.     generate increase_`measure' = `measure'_min>L1.`measure'_max+0.1
  17. }
 (277 missing values generated)
@@ -227,8 +198,8 @@ variable timing_note was str47 now str63
 
 . generate known_policy = known_all & known_paid
 
-. generate expansion = year==L1.year+1 & known_policy & L1.known_policy==1 & no
-> ndecrease_all & nondecrease_paid & (increase_all | increase_paid)
+. generate expansion = year==L1.year+1 & known_policy & L1.known_policy==1 & nondecrease_all & nondec
+> rease_paid & (increase_all | increase_paid)
 
 . replace expansion = 0 if !inrange(year,2000,2024)
 (25 real changes made)
@@ -248,20 +219,46 @@ variable timing_note was str47 now str63
 
 . drop first_reform
 
-. keep iso country year total_all_raw total_paid_raw known_policy reform_year t
-> iming_note
+. 
+. * Calculate the OECD leave lag on the annual policy history before merging employment.
+. preserve
+
+. sort pid year
+
+. generate policy_weeks10 = real(total_paid_raw)/10 if known_policy==1
+(287 missing values generated)
+
+. replace policy_weeks10 = 2.86 if total_paid_raw=="28.6 / 54.6" & known_policy==1
+(7 real changes made)
+
+. replace policy_weeks10 = 3.017 if total_paid_raw=="30.17 / 56.17" & known_policy==1
+(3 real changes made)
+
+. generate policy_lag_weeks10 = L1.policy_weeks10
+(315 missing values generated)
+
+. keep iso year policy_lag_weeks10
+
+. keep if inrange(year,2000,2024)
+(1,140 observations deleted)
+
+. save `oecd_policy_lag'
+file /var/folders/70/c_t3zk1175x0jxm83ldvyly00000gn/T//S_76330.000004 saved as .dta format
+
+. restore
+
+. 
+. keep iso country year total_all_raw total_paid_raw known_policy reform_year timing_note
 
 . keep if inrange(year,2000,2024)
 (1,140 observations deleted)
 
 . save `policy'
-file C:\Users\Hansen\AppData\Local\Temp\ST_9a60_000003.tmp saved as .dta
-    format
+file /var/folders/70/c_t3zk1175x0jxm83ldvyly00000gn/T//S_76330.000003 saved as .dta format
 
 . 
 . * Read the Eurostat employment file.
-. import delimited "${datadir_raw}/eurostat_employment_raw.csv", clear varnames
-> (1)
+. import delimited "${datadir_raw}/eurostat_employment_raw.csv", clear varnames(1)
 (encoding automatically selected: ISO-8859-1)
 (11 vars, 124,529 obs)
 
@@ -316,10 +313,8 @@ Number of observations            1,276   ->   319
 Number of variables                   5   ->   10          
 j variable (4 values)           measure   ->   (dropped)
 xij variables:
-                                  value   ->   valueF_EMP valueF_POP ... valueM
-> _POP
-                                   flag   ->   flagF_EMP flagF_POP ... flagM_PO
-> P
+                                  value   ->   valueF_EMP valueF_POP ... valueM_POP
+                                   flag   ->   flagF_EMP flagF_POP ... flagM_POP
 -----------------------------------------------------------------------------
 
 . generate male_rate = 100*valueM_EMP/valueM_POP
@@ -341,8 +336,7 @@ xij variables:
 . keep iso year male_rate female_rate source_flags
 
 . 
-. * Unmatched rows are policy years outside the panel or countries outside the 
-> sample.
+. * Unmatched rows are policy years outside the panel or countries outside the sample.
 . * Merge raw outcomes with the policy history and apply the sample rule below.
 . merge 1:1 iso year using `policy'
 
@@ -436,8 +430,7 @@ xij variables:
 (1,375 missing values generated)
 
 . 
-. * Unmatched rows are policy years outside the panel or countries outside the 
-> sample.
+. * Unmatched rows are policy years outside the panel or countries outside the sample.
 . * Merge raw outcomes with the policy history and apply the sample rule below.
 . merge 1:1 iso year using `policy'
 
@@ -554,8 +547,7 @@ Panel variable: wdi_id (strongly balanced)
 
 .     label variable lag_gdp_growth "Lagged real GDP growth, percent"
 
-.     keep iso year ny_gdp_pcap_kd ny_gdp_mktp_kd_zg lngdp gdp_growth lag_lngdp
->  lag_gdp_growth
+.     keep iso year ny_gdp_pcap_kd ny_gdp_mktp_kd_zg lngdp gdp_growth lag_lngdp lag_gdp_growth
 
 .     save "${datadir_final}/wdi_controls.dta", replace
 file ./data_final/wdi_controls.dta saved
@@ -599,51 +591,54 @@ file ./data_final/policy_controls.dta saved
   6.     replace fatherweeks = real(total_paid_raw)
   7.     replace fatherweeks = 28.6  if total_paid_raw == "28.6 / 54.6"
   8.     replace fatherweeks = 30.17 if total_paid_raw == "30.17 / 56.17"
-  9.     label variable fatherweeks "Weeks of paid father-specific leave (PF2.1
-> , lower bound)"
+  9.     label variable fatherweeks "Weeks of paid father-specific leave (PF2.1, lower bound)"
  10. 
 .     * Unit: pp change in the gap per 10 extra weeks of lagged leave
 .     generate fatherweeks10 = fatherweeks/10
- 11.     label variable fatherweeks10 "Father-specific paid leave, per 10 weeks
-> "
- 12.     generate lag_fatherweeks10 = L1.fatherweeks10
- 13.     label variable lag_fatherweeks10 "Lagged father-specific paid leave, p
-> er 10 weeks"
- 14. 
+ 11.     label variable fatherweeks10 "Father-specific paid leave, per 10 weeks"
+ 12.     if "`s'" == "oecd" {
+ 13.         * Keep employment rows and attach the policy lag, including across employment gaps.
+.         merge 1:1 iso year using `oecd_policy_lag'
+ 14.         drop if _merge==2
+ 15.         drop _merge
+ 16.         generate lag_fatherweeks10 = policy_lag_weeks10
+ 17.         drop policy_lag_weeks10
+ 18.     }
+ 19.     else {
+ 20.         generate lag_fatherweeks10 = L1.fatherweeks10
+ 21.     }
+ 22.     label variable lag_fatherweeks10 "Lagged father-specific paid leave, per 10 weeks"
+ 23. 
 .     * WDI macro controls, with lags already built on the full annual series
 .     sort iso year
- 15.     merge 1:1 iso year using "${datadir_final}/wdi_controls.dta"
- 16.     keep if _merge==3
- 17.     drop _merge
- 18. 
-.     * Public leave spending; maternal_weeks kept for inspection only (sparse 
-> coverage)
+ 24.     merge 1:1 iso year using "${datadir_final}/wdi_controls.dta"
+ 25.     keep if _merge==3
+ 26.     drop _merge
+ 27. 
+.     * Public leave spending; maternal_weeks kept for inspection only (sparse coverage)
 .     sort iso year
- 19.     merge 1:1 iso year using "${datadir_final}/policy_controls.dta"
- 20.     keep if _merge==3
- 21.     drop _merge
- 22. 
+ 28.     merge 1:1 iso year using "${datadir_final}/policy_controls.dta"
+ 29.     keep if _merge==3
+ 30.     drop _merge
+ 31. 
 .     * Lagged log GDP per capita is required in every regression
-.     label variable leave_gdp "Public maternity and parental leave spending, p
-> ercent of GDP"
- 23. 
-.     * post: years at/after the first verified expansion; controls have no ref
-> orm year
+.     label variable leave_gdp "Public maternity and parental leave spending, percent of GDP"
+ 32. 
+.     * post: years at/after the first verified expansion; controls have no reform year
 .     generate post = (year>=reform_year) if !missing(reform_year)
- 24.     replace post = 0 if missing(post)
- 25.     label variable post "Post first verified expansion of reserved paid le
-> ave"
- 26. 
+ 33.     replace post = 0 if missing(post)
+ 34.     label variable post "Post first verified expansion of reserved paid leave"
+ 35. 
 .     * Coverage of the control variables
 .     * Non-missing paid maternity weeks
 .     count if maternal_weeks!=.
- 27.     * Non-missing lagged log GDP per capita
+ 36.     * Non-missing lagged log GDP per capita
 .     count if lag_lngdp!=.
- 28.     * Non-missing public leave spending
+ 37.     * Non-missing public leave spending
 .     count if leave_gdp!=.
- 29. 
+ 38. 
 .     save "${datadir_final}/`s'_analysis_261109.dta", replace
- 30. }
+ 39. }
 
 Panel variable: country_id (unbalanced)
  Time variable: year, 2006 to 2019
@@ -688,7 +683,17 @@ Panel variable: country_id (unbalanced)
 (199 real changes made)
 (7 real changes made)
 (3 real changes made)
-(34 missing values generated)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                           473
+        from master                         0  (_merge==1)
+        from using                        473  (_merge==2)
+
+    Matched                               477  (_merge==3)
+    -----------------------------------------
+(473 observations deleted)
+(4 missing values generated)
 
     Result                      Number of obs
     -----------------------------------------
@@ -721,8 +726,7 @@ file ./data_final/oecd_analysis_261109.dta saved
 . * CSV copies of the analysis files
 . foreach s in europe oecd {
   2.     use "${datadir_final}/`s'_analysis_261109.dta", clear
-  3.     export delimited using "${datadir_final}/`s'_analysis_261109.csv", rep
-> lace
+  3.     export delimited using "${datadir_final}/`s'_analysis_261109.csv", replace
   4. }
 file ./data_final/europe_analysis_261109.csv saved
 file ./data_final/oecd_analysis_261109.csv saved
