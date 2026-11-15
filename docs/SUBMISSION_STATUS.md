@@ -26,10 +26,10 @@ finished and verified; everything left is a manual team action.
   version reports N, mean (sd), min and max per variable, so the reading
   `leave_gdp` covers 20 of the 23 rows is visible rather than hidden behind a
   single sample size.
-- Build-up table with all four columns on the same 333 observations:
+- Build-up table with all four columns on the same 358 observations:
   `tables/results_buildup_261109.docx`.
-- Three-column subset table with its all-countries column on the full 443
-  observations, so 341 + 102 adds back to 443:
+- Three-column subset table with its all-countries column on the full 473
+  observations, so 359 + 114 adds back to 443:
   `tables/results_subsets_261109.docx`.
 - Full 1/99 winsorized repeat covering all five continuous variables; changes
   4 / 0 / 4 / 5 / 5 observations and moves the main coefficient from +0.560 to
@@ -40,7 +40,7 @@ finished and verified; everything left is a manual team action.
 - Three `test lag_fatherweeks10 = 0` lines in `3_results_261109.do` print the
   exact p-values behind the quoted numbers: Europe LSDV clustered
   `F(1,22) = 3.77`, `p = 0.0651`; Europe AR(1) PCSE `chi2(1) = 7.29`,
-  `p = 0.0069`; OECD AR(1) PCSE `chi2(1) = 0.30`, `p = 0.5832`.
+  `p = 0.0069`; OECD AR(1) PCSE `chi2(1) = 0.03`, `p = 0.8599`.
 
 ## 2. Manual actions still required
 
@@ -73,7 +73,7 @@ It is **not** the submission folder. The authoritative folder is the team
 > gives p=0.054. Both are wrong-signed relative to H1 and neither is
 > significant at 5 percent. The DiD estimate is -0.626 (p=0.653), all
 > event-study leads and lags are insignificant, and the OECD extension columns
-> give p=0.352 / 0.583 / 0.746. An AR(1) PCSE sensitivity check gives +0.560
+> give p=0.846 / 0.860 / 0.467. An AR(1) PCSE sensitivity check gives +0.560
 > (p=0.007); we do not use it as the headline inference because the course
 > note "Preparing for Panel Data Analysis" requires clustered standard errors,
 > and with only 23 clusters our inference is already optimistic. We therefore
@@ -89,15 +89,15 @@ It is **not** the submission folder. The authoritative folder is the team
 > years. (ii) Rows that do match but still leave a regression: WDI GDP controls
 > merge to all 295 European and all 477 OECD country-years, but taking lags and
 > missing values in public leave spending (`leave_gdp`, whose SOCX coverage is
-> sparse outside Europe) reduce the OECD extension columns to 333 / 333 / 443
+> sparse outside Europe) reduce the OECD extension columns to 358 / 358 / 473
 > observations; the third column drops that covariate to show the loss. For the
-> same reason the build-up table holds the sample fixed at 333 observations in
+> same reason the build-up table holds the sample fixed at 358 observations in
 > all four columns.
 >
 > Subset note: the three-column subset table splits the 26 OECD countries
 > into 19 European and 7 non-European members, following the difference in
-> supranational leave mandates. The non-European column has only 6 country
-> groups and 102 observations and is shown for the required comparison only;
+> supranational leave mandates. The non-European column has 7 country
+> groups and 114 observations and is shown for the required comparison only;
 > its coefficient must not be read as a policy effect.
 >
 > Preferred specification: the unwinsorized AR(1) PCSE model with country and
