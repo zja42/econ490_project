@@ -119,7 +119,7 @@ estimates store build4
 etable, estimates(build1 build2 build3 build4) ///
     keep(lag_fatherweeks10 lag_lngdp lag_gdp_growth leave_gdp) ///
     mstat(N) mstat(r2) showstars showstarsnote varlabel column(index) ///
-    note("Year FE: yes; Country FE: yes in all columns. Main regressor enters first; no non-linear term is added. All four columns use the same 333 observations with complete data on every variable.") ///
+    note("Year FE: yes; Country FE: yes in all columns. Main regressor enters first; no non-linear term is added. All four columns use the same observations with complete data on every variable.") ///
     export("${tabledir}/results_buildup_261109.docx", replace)
 
 * Subsets compare countries with and without supranational EU leave mandates
@@ -140,7 +140,7 @@ estimates store sub_noneurope
 etable, estimates(all_countries sub_europe sub_noneurope) ///
     keep(lag_fatherweeks10 lag_lngdp lag_gdp_growth) ///
     mstat(N) mstat(r2) showstars showstarsnote varlabel column(index) ///
-    note("Year FE: yes; Country FE: yes. Subsets split the 26 OECD members by supranational EU leave mandates (19 European, 7 non-European). The non-European column has 6 groups and 102 observations; report it for the three-column comparison only, not as a policy effect.") ///
+    note("Year FE: yes; Country FE: yes. Subsets split the 26 OECD members by supranational EU leave mandates (19 European, 7 non-European). Use the non-European column for the geographic comparison.") ///
     export("${tabledir}/results_subsets_261109.docx", replace)
 
 //Close log if needed

@@ -35,7 +35,7 @@ if ${store_log_build}==1 {
 * Europe: Eurostat lfst_hhacwnc, 23 OECD countries, 2006-2019, N=295
 * Import the original OECD policy workbook.
 import delimited "${datadir_raw}/country_codes.csv", clear varnames(1)
-tempfile country_codes euro_codes policy
+tempfile country_codes euro_codes policy oecd_policy_lag
 save `country_codes'
 preserve
 keep if geo!=""
@@ -108,6 +108,19 @@ generate reform_year = year if expansion==1
 bysort iso: egen first_reform = min(reform_year)
 replace reform_year = first_reform
 drop first_reform
+
+* Calculate the OECD leave lag on the annual policy history before merging employment.
+preserve
+sort pid year
+generate policy_weeks10 = real(total_paid_raw)/10 if known_policy==1
+replace policy_weeks10 = 2.86 if total_paid_raw=="28.6 / 54.6" & known_policy==1
+replace policy_weeks10 = 3.017 if total_paid_raw=="30.17 / 56.17" & known_policy==1
+generate policy_lag_weeks10 = L1.policy_weeks10
+keep iso year policy_lag_weeks10
+keep if inrange(year,2000,2024)
+save `oecd_policy_lag'
+restore
+
 keep iso country year total_all_raw total_paid_raw known_policy reform_year timing_note
 keep if inrange(year,2000,2024)
 save `policy'
@@ -249,7 +262,17 @@ foreach s in europe oecd {
     * Unit: pp change in the gap per 10 extra weeks of lagged leave
     generate fatherweeks10 = fatherweeks/10
     label variable fatherweeks10 "Father-specific paid leave, per 10 weeks"
-    generate lag_fatherweeks10 = L1.fatherweeks10
+    if "`s'" == "oecd" {
+        * Keep employment rows and attach the policy lag, including across employment gaps.
+        merge 1:1 iso year using `oecd_policy_lag'
+        drop if _merge==2
+        drop _merge
+        generate lag_fatherweeks10 = policy_lag_weeks10
+        drop policy_lag_weeks10
+    }
+    else {
+        generate lag_fatherweeks10 = L1.fatherweeks10
+    }
     label variable lag_fatherweeks10 "Lagged father-specific paid leave, per 10 weeks"
 
     * WDI macro controls, with lags already built on the full annual series
