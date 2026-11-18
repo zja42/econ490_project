@@ -1,29 +1,23 @@
--------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
       name:  <unnamed>
-       log:  C:\Users\Hansen\UBC\ECON 490 003 2026W1 Seminar in Applied Economi
-> cs - econ490_project\log_files/1_build_data_261109.log
+       log:  /private/tmp/econ490-zja42-rename/log_files/1_build_data_261109.log
   log type:  text
- opened on:  18 Nov 2026, 00:55:23
+ opened on:  18 Nov 2026, 16:40:16
 . }
 
 . 
 . * Data sources, the copies we actually read sit in data_raw
-. * International Labour Organization. 2026. "Employment rate by sex and househ
-> old
-. *   composition" [GED_PEPR_SEX_HHT_CHL_RT_A] (database), ILOSTAT. Geneva: ILO
-> .
+. * International Labour Organization. 2026. "Employment rate by sex and household
+. *   composition" [GED_PEPR_SEX_HHT_CHL_RT_A] (database), ILOSTAT. Geneva: ILO.
 . *   https://ilostat.ilo.org/data/ (accessed 14 November 2026).
-. * OECD. 2026. Social Expenditure Database (SOCX) (dataset), public spending o
-> n
+. * OECD. 2026. Social Expenditure Database (SOCX) (dataset), public spending on
 . *   early childhood education and care (TP521) and on maternity and parental
-. *   leave (TP512), percent of GDP. Paris: OECD. https://doi.org/10.1787/data-
-> 00167-en
+. *   leave (TP512), percent of GDP. Paris: OECD. https://doi.org/10.1787/data-00167-en
 . *   (accessed 16 November 2026).
-. * OECD. 2026. "PF2.5 Trends in leave entitlements around childbirth" (dataset
-> ),
+. * OECD. 2026. "PF2.5 Trends in leave entitlements around childbirth" (dataset),
 . *   OECD Family Database, updated November 2026. Paris: OECD.
-. *   https://webfs.oecd.org/els-com/Family_Database/PF2_5_Trends_in_leave_enti
-> tlements_around_childbirth.xlsx
+. *   https://webfs.oecd.org/els-com/Family_Database/PF2_5_Trends_in_leave_entitlements_around_childb
+> irth.xlsx
 . *   (accessed 14 November 2026).
 . * World Bank. 2026. World Development Indicators (dataset), NY.GDP.PCAP.KD,
 . *   last updated 11 November 2026. Washington, DC: World Bank.
@@ -40,10 +34,8 @@
 file ./data_final/tmp_country_codes.dta saved
 
 . 
-. * control variables, weeks of paid leave kept for fathers and mothers, from t
-> he OECD workbook
-. import delimited "${datadir_raw}/oecd_leave_timeseries.csv", clear varnames(1
-> )
+. * control variables, weeks of paid leave kept for fathers and mothers, from the OECD workbook
+. import delimited "${datadir_raw}/oecd_leave_timeseries.csv", clear varnames(1)
 (encoding automatically selected: ISO-8859-1)
 (5 vars, 2,165 obs)
 
@@ -133,11 +125,9 @@ Panel variable: leave_id (unbalanced)
 . replace fatherweeks = 11.46666 if iso=="GRC" & year==2021
 (1 real change made)
 
-. label variable fatherweeks "Weeks of paid father-specific leave (lower bound)
-> "
+. label variable fatherweeks "Weeks of paid father-specific leave (lower bound)"
 
-. label variable motherweeks "Weeks of paid maternity, parental and home care l
-> eave for mothers"
+. label variable motherweeks "Weeks of paid maternity, parental and home care leave for mothers"
 
 . 
 . * build the lag on the full 2000-2024 series, before the merge
@@ -168,16 +158,14 @@ Panel variable: leave_id (strongly balanced)
 
 . label variable fatherweeks10 "Father-specific paid leave, per 10 weeks"
 
-. label variable lag_fatherweeks10 "Lagged father-specific paid leave, per 10 w
-> eeks"
+. label variable lag_fatherweeks10 "Lagged father-specific paid leave, per 10 weeks"
 
 . label variable motherweeks10 "Mother-side paid leave, per 10 weeks"
 
-. label variable lag_motherweeks10 "Lagged mother-side paid leave, per 10 weeks
-> "
+. label variable lag_motherweeks10 "Lagged mother-side paid leave, per 10 weeks"
 
-. keep iso country year fatherweeks fatherweeks10 lag_fatherweeks10 motherweeks
->  motherweeks10 lag_motherweeks10
+. keep iso country year fatherweeks fatherweeks10 lag_fatherweeks10 motherweeks motherweeks10 lag_mot
+> herweeks10
 
 . save "${datadir_final}/tmp_leave_weeks.dta", replace
 file ./data_final/tmp_leave_weeks.dta saved
@@ -213,13 +201,11 @@ file ./data_final/tmp_gdp_controls.dta saved
 
 . 
 . * control variable, public spending on maternity and parental leave
-. import delimited using "${datadir_raw}/oecd_socx_tp512_leave.csv", clear varn
-> ames(1)
+. import delimited using "${datadir_raw}/oecd_socx_tp512_leave.csv", clear varnames(1)
 (encoding automatically selected: ISO-8859-1)
 (16 vars, 1,009 obs)
 
-. keep if unit_measure=="PT_B1GQ" & expend_source=="ES10" & programme_type=="TP
-> 512"
+. keep if unit_measure=="PT_B1GQ" & expend_source=="ES10" & programme_type=="TP512"
 (0 observations deleted)
 
 . rename ref_area iso
@@ -230,21 +216,18 @@ file ./data_final/tmp_gdp_controls.dta saved
 
 . rename obs_value leave_gdp
 
-. label variable leave_gdp "Public maternity and parental leave spending, perce
-> nt of GDP"
+. label variable leave_gdp "Public maternity and parental leave spending, percent of GDP"
 
 . save "${datadir_final}/tmp_leave_spending.dta", replace
 file ./data_final/tmp_leave_spending.dta saved
 
 . 
 . * main explanatory variable, childcare spending lagged on the full series
-. import delimited using "${datadir_raw}/oecd_socx_ecec_gdp.csv", clear varname
-> s(1)
+. import delimited using "${datadir_raw}/oecd_socx_ecec_gdp.csv", clear varnames(1)
 (encoding automatically selected: ISO-8859-2)
 (16 vars, 1,009 obs)
 
-. keep if unit_measure=="PT_B1GQ" & expend_source=="ES10" & programme_type=="TP
-> 521"
+. keep if unit_measure=="PT_B1GQ" & expend_source=="ES10" & programme_type=="TP521"
 (0 observations deleted)
 
 . rename ref_area iso
@@ -277,8 +260,7 @@ Panel variable: spending_id (unbalanced)
 file ./data_final/tmp_childcare_spending.dta saved
 
 . 
-. * dependent variable, employment rates of mothers and fathers of children und
-> er six
+. * dependent variable, employment rates of mothers and fathers of children under six
 . import delimited "${datadir_raw}/ilo_household_raw.csv", clear varnames(1)
 (encoding automatically selected: ISO-8859-1)
 (11 vars, 169,678 obs)
@@ -341,8 +323,7 @@ xij variables:
 
 . 
 . * merge the paid-leave weeks controls
-. * matched rows without a father leave record drop, they carry no entitlement 
-> to lag
+. * matched rows without a father leave record drop, they carry no entitlement to lag
 . merge 1:1 iso year using "${datadir_final}/tmp_leave_weeks.dta"
 
     Result                      Number of obs
@@ -391,8 +372,7 @@ xij variables:
 
 . 
 . * merge leave spending
-. * unmatched country-years have no SOCX row, 2024 and a few others, they stay 
-> missing
+. * unmatched country-years have no SOCX row, 2024 and a few others, they stay missing
 . merge 1:1 iso year using "${datadir_final}/tmp_leave_spending.dta"
 (variable iso was str3, now str4 to accommodate using data's values)
 
@@ -412,8 +392,7 @@ xij variables:
 
 . 
 . * merge childcare spending
-. * spending-only rows are outside the job panel, job rows with no spending sta
-> y and get marked
+. * spending-only rows are outside the job panel, job rows with no spending stay and get marked
 . merge 1:1 iso year using "${datadir_final}/tmp_childcare_spending.dta"
 
     Result                      Number of obs
@@ -442,37 +421,33 @@ xij variables:
 . drop _merge
 
 . 
-. * two subsets, European countries under the EU childcare targets and the rest
->  of the OECD
+. * two subsets, European countries under the EU childcare targets and the rest of the OECD
 . generate byte eu_childcare = 0
 
-. replace eu_childcare = 1 if inlist(iso,"AUT","BEL","CZE","DEU","ESP","EST","F
-> RA","GBR")
+. replace eu_childcare = 1 if inlist(iso,"AUT","BEL","CZE","DEU","ESP","EST","FRA","GBR")
 (189 real changes made)
 
-. replace eu_childcare = 1 if inlist(iso,"GRC","HUN","IRL","ITA","LTU","LUX","L
-> VA","NLD")
+. replace eu_childcare = 1 if inlist(iso,"GRC","HUN","IRL","ITA","LTU","LUX","LVA","NLD")
 (131 real changes made)
 
 . replace eu_childcare = 1 if inlist(iso,"POL","PRT","SVN")
 (43 real changes made)
 
-. label variable eu_childcare "European group covered by EU childcare targets d
-> uring the study period"
+. label variable eu_childcare "European group covered by EU childcare targets during the study period
+> "
 
 . 
 . * flag country-years where every model variable is there
 . generate byte childcare_sample = 1
 
-. replace childcare_sample = 0 if missing(employment_gap, lag_socx_ecec, lag_fa
-> therweeks10, lag_motherweeks10)
+. replace childcare_sample = 0 if missing(employment_gap, lag_socx_ecec, lag_fatherweeks10, lag_mothe
+> rweeks10)
 (80 real changes made)
 
 . replace childcare_sample = 0 if missing(lag_lngdp, leave_gdp)
 (50 real changes made)
 
-. label variable childcare_sample "Complete-case sample for the childcare regre
-> ssions"
+. label variable childcare_sample "Complete-case sample for the childcare regressions"
 
 . tabulate childcare_sample
 
@@ -491,10 +466,10 @@ regressions |      Freq.     Percent        Cum.
 . * log versions of the continuous variables, for the elasticity model
 . generate ln_gap = ln(employment_gap)
 
-. generate ln_spending = ln(1 + lag_socx_ecec)
+. generate ln_childcare = ln(1 + lag_socx_ecec)
 (66 missing values generated)
 
-. generate ln_leaveweeks = ln(1 + lag_fatherweeks10)
+. generate ln_fatherleave = ln(1 + lag_fatherweeks10)
 (14 missing values generated)
 
 . generate ln_motherweeks = ln(1 + lag_motherweeks10)
@@ -505,14 +480,11 @@ regressions |      Freq.     Percent        Cum.
 
 . label variable ln_gap "Log of the male minus female employment gap"
 
-. label variable ln_spending "Log of one plus prior-year ECEC spending (% of GD
-> P)"
+. label variable ln_childcare "Log of one plus prior-year ECEC spending (% of GDP)"
 
-. label variable ln_leaveweeks "Log of one plus lagged father leave (per 10 wee
-> ks)"
+. label variable ln_fatherleave "Log of one plus lagged father leave (per 10 weeks)"
 
-. label variable ln_motherweeks "Log of one plus lagged mother-side paid leave 
-> (per 10 weeks)"
+. label variable ln_motherweeks "Log of one plus lagged mother-side paid leave (per 10 weeks)"
 
 . label variable ln_leavespending "Log of public leave spending (% of GDP)"
 

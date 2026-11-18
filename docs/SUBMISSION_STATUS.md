@@ -30,7 +30,7 @@ finished and verified; everything left is a manual team action.
   `xtreg, fe` country-effects F test is F(22,276) = 56.83, p < 0.001.
 - Comments in the do-files about unmatched merges, the preferred
   unwinsorized specification, and why the non-linear term is not used.
-- `testparm ln_spending` prints childcare p-values for the log models, and
+- `testparm ln_childcare` prints childcare p-values for the log models, and
   `testparm lag_socx_ecec` does so for the level model, and the PCSE column prints chi2(1) = 12.17,
   p = 0.0005.
 

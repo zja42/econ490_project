@@ -68,6 +68,13 @@ wrong at least once.
 
 ## 4. Current research and results
 
+Variable names: `ln_childcare` is log of one plus prior-year public ECEC spending,
+and `ln_fatherleave` is log of one plus lagged father-specific paid leave
+measured per ten weeks. Their winsorized versions are `w_ln_childcare` and
+`w_ln_fatherleave`. Mother-side leave (`ln_motherweeks`) and public leave
+spending (`ln_leavespending`) are separate controls. These are naming changes;
+transformations and model specifications are unchanged.
+
 Question: does lagged public spending on early childhood education and care
 reduce the male-minus-female employment gap among parents of young children?
 The employment panel contains 477 country-years within the 2000–2024 source

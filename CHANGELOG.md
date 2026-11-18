@@ -1,3 +1,11 @@
+## 2026-11-18 — Clearer childcare and father-leave variable names
+
+Renamed `ln_spending` to `ln_childcare` and `ln_leaveweeks` to
+`ln_fatherleave`, including winsorized counterparts, diagnostics, figures,
+regressions and exported variable references. Summary columns use childcare
+and fatherleave names. The transformed definitions, controls, sample and
+estimators are unchanged. Rebuilt data and reran all numbered scripts.
+
 # Changelog
 
 This file records the team's analysis and repository changes. The 17 November
@@ -207,7 +215,7 @@ were an earlier TP512 vintage (99 percent within 0.005; the largest gaps were
 published revisions of roughly 0.02 for Norway). The estimation sample is
 unchanged at N = 347 and the merge structure is unchanged (427 matched, 50
 SOCX-only absences, 582 spending-only rows). Revised printed values:
-`ln_spending` −0.582 (testparm F(1, 276) = 25.17), PCSE −0.477 (chi2(1) =
+`ln_childcare` −0.582 (testparm F(1, 276) = 25.17), PCSE −0.477 (chi2(1) =
 12.52, p = 0.0004), winsorized −0.581 (F(1, 276) = 26.62), no-trends −0.622,
 quadratic p = 0.8318, year FE p = 0.2904, country FE F = 173.02, `xttest3`
 chi2(23) = 5332.23, "other OECD" subset −0.327 (p = 0.349). The leave

@@ -193,13 +193,13 @@ tabulate childcare_sample
 
 * log versions of the continuous variables, for the elasticity model
 generate ln_gap = ln(employment_gap)
-generate ln_spending = ln(1 + lag_socx_ecec)
-generate ln_leaveweeks = ln(1 + lag_fatherweeks10)
+generate ln_childcare = ln(1 + lag_socx_ecec)
+generate ln_fatherleave = ln(1 + lag_fatherweeks10)
 generate ln_motherweeks = ln(1 + lag_motherweeks10)
 generate ln_leavespending = ln(leave_gdp)
 label variable ln_gap "Log of the male minus female employment gap"
-label variable ln_spending "Log of one plus prior-year ECEC spending (% of GDP)"
-label variable ln_leaveweeks "Log of one plus lagged father leave (per 10 weeks)"
+label variable ln_childcare "Log of one plus prior-year ECEC spending (% of GDP)"
+label variable ln_fatherleave "Log of one plus lagged father leave (per 10 weeks)"
 label variable ln_motherweeks "Log of one plus lagged mother-side paid leave (per 10 weeks)"
 label variable ln_leavespending "Log of public leave spending (% of GDP)"
 
